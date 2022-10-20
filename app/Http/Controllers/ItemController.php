@@ -10,6 +10,13 @@ use League\CommonMark\CommonMarkConverter;
 
 class ItemController extends Controller
 {
+    private $validationArray = [
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric',
+         'url' => 'required|url',
+        'description' => 'required|string',
+    ];
+
     public function index()
     {
         $items = Item::all();
@@ -19,12 +26,7 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-          'name' => 'required|string|max:255',
-          'price' => 'required|numeric',
-           'url' => 'required|url',
-          'description' => 'required|string',
-        ]);
+        $this->validate($request, $this->validationArray);
 
         $converter = new CommonMarkConverter(['html_input' => 'escape', 'allow_unsafe_links' => false]);
 
@@ -51,12 +53,7 @@ class ItemController extends Controller
 
     public function update(Request $request, int $id)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'url' => 'required|url',
-            'description' => 'required|string',
-        ]);
+        $this->validate($request, $this->validationArray);
 
         $converter = new CommonMarkConverter(['html_input' => 'escape', 'allow_unsafe_links' => false]);
 
