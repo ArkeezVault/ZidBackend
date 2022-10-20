@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Serializers\ItemSerializer;
 use App\Serializers\ItemsSerializer;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
@@ -15,7 +14,7 @@ class ItemController extends Controller
     {
         $items = Item::all();
 
-        return JsonResponse::create(['items' => (new ItemsSerializer($items))->getData()]);
+        return response()->json(['items' => (new ItemsSerializer($items))->getData()], 200);
     }
 
     public function store(Request $request)
@@ -38,7 +37,7 @@ class ItemController extends Controller
 
         $serializer = new ItemSerializer($item);
 
-        return new JsonResponse(['item' => $serializer->getData()]);
+        return response()->json(['item' => $serializer->getData()]);
     }
 
     public function show($id)
@@ -47,10 +46,10 @@ class ItemController extends Controller
 
         $serializer = new ItemSerializer($item);
 
-        return new JsonResponse(['item' => $serializer->getData()]);
+        return response()->json(['item' => $serializer->getData()]);
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, int $id)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
@@ -68,10 +67,6 @@ class ItemController extends Controller
         $item->description = $converter->convert($request->get('description'))->getContent();
         $item->save();
 
-        return new JsonResponse(
-            [
-                'item' => (new ItemSerializer($item))->getData()
-            ]
-        );
+        return response()->json(['item' => (new ItemSerializer($item))->getData()]);
     }
 }
