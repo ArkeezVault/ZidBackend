@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ItemRequest;
 use App\Serializers\ItemSerializer;
 use League\CommonMark\CommonMarkConverter;
 
@@ -15,7 +15,7 @@ class Item extends Model
 
     protected $guarded = ['id'];
 
-    public function saveItem(Item $item, Request $request)
+    public function saveItem(Item $item, ItemRequest $request)
     {
         $converter = new CommonMarkConverter([
             'html_input' => 'escape', 
