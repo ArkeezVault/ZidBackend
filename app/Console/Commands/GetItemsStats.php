@@ -12,7 +12,7 @@ class GetItemsStats extends Command
      *
      * @var string
      */
-    protected $signature = 'items:stats {--stat : which stat to display}';
+    protected $signature = 'items:stats {--stat : choose which statistic to display}';
 
     /**
      * The console command description.
