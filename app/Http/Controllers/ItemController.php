@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Http\Requests\ItemRequest;
 use App\Serializers\ItemSerializer;
 use App\Serializers\ItemsSerializer;
-use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
 {
